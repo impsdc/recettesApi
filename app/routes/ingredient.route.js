@@ -1,29 +1,24 @@
-module.exports = app => {
-    const ingredient = require("../controllers/ingredient.controller");
-  
-    var router = require("express").Router();
-  
+module.exports = (app) => {
+    const ingredients = require("../controllers/ingredient.controller.js");
+
     // Create a new Tutorial
-    router.post("/", ingredient.create);
-  
+    app.post("/ingredient/", ingredients.create);
+
     // Retrieve all Tutorials
-    router.get("/", ingredient.findAll);
-  
+    app.get("/ingredient/", ingredients.findAll);
+
     // Retrieve all published Tutorials
-    router.get("/published", ingredient.findAllPublished);
-  
+    app.get("/ingredient/published/", ingredients.findAllPublished);
+
     // Retrieve a single Tutorial with id
-    router.get("/:id", ingredient.findOne);
-  
+    app.get("/ingredient/:id", ingredients.findOne);
+
     // Update a Tutorial with id
-    router.put("/:id", ingredient.update);
-  
+    app.put("/ingredient/:id", ingredients.update);
+
     // Delete a Tutorial with id
-    router.delete("/:id", ingredient.delete);
-  
+    app.delete("/ingredient/:id", ingredients.delete);
+
     // Create a new Tutorial
-    router.delete("/", ingredient.deleteAll);
-  
-    app.use('/api/ingredient', router);
-  };
-  
+    app.delete("/ingredient/", ingredients.deleteAll);
+};
