@@ -1,43 +1,29 @@
 const db = require("../models");
-const Ingredient = db.ingredient;
+const ContenuRecette = db.contenuRecette;
 const Op = db.Sequelize.Op;
-const fs = require("fs");
-
-const path = require("path");
-
-exports.home = (req, res) => {
-  return res.sendFile(path.join(`${__dirname}/../../views/index.html`));
-};
 
 // Create and Save a new candidate
 exports.create = (req, res) => {
-  console.log(req.file);
+  console.log(req.body)
   // Validate request
-  if (!req.body.nom) {
+  if (!req.body.quantite) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
-  } else if (!req.body.prix) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  } else if (req.file == undefined) {
-    res.status(400).send({
-      message: "you must select a file !",
-    });
   }
+  // Create a contenuRecette
+  const contenuRecette =
+    {
+      quantite: req.body.quantite,
+      published: req.body.published ? req.body.published : false,
+      ingredientId: req.body.ingredientId,
+      recetteId: req.body.recetteId,
 
-  // Create a Ingredient
-  const ingredient = {
-    nom: req.body.nom,
-    prix: req.body.prix,
-    published: req.body.published ? req.body.published : false,
-    image: fs.readFileSync(__basedir + "/public/uploads/" + req.file.filename),
-  };
+    };
 
-  // Save Ingredient in the database
-  Ingredient.create(ingredient)
+  // Save contenuRecette in the database
+  ContenuRecette.create(contenuRecette)
     .then((data) => {
       res.send(data);
     })
@@ -50,8 +36,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const nom = req.query.nom;
-  var condition = nom
+  const quantite = req.query.quantite;
+  var condition = quantite
     ? {
         nom: {
           [Op.like]: `%${nom}%`,
@@ -59,7 +45,7 @@ exports.findAll = (req, res) => {
       }
     : null;
 
-  Ingredient.findAll({ where: condition })
+  ContenuRecette.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
@@ -75,7 +61,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Ingredient.findByPk(id)
+  ContenuRecette.findByPk(id)
     .then((data) => {
       res.send(data);
     })
@@ -90,23 +76,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Ingredient.update(req.body, {
+  ContenuRecette.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Ingredient was updated successfully.",
+          message: "contenuRecette was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Ingredient with id=${id}. Maybe Ingredient was not found or req.body is empty!`,
+          message: `Cannot update contenuRecette with id=${id}. Maybe contenuRecette was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Ingredient with id=" + id,
+        message: "Error updating contenuRecette with id=" + id,
       });
     });
 };
@@ -115,54 +101,57 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Ingredient.destroy({
+  ContenuRecette.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Ingredient was deleted successfully!",
+          message: "contenuRecette was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Ingredient with id=${id}. Maybe Ingredient was not found!`,
+          message: `Cannot delete contenuRecette with id=${id}. Maybe contenuRecette was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Ingredient with id=" + id,
+        message: "Could not delete contenuRecette with id=" + id,
       });
     });
 };
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-  Ingredient.destroy({
+  ContenuRecette.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} Ingredient were deleted successfully!` });
+      res.send({
+        message: `${nums} contenuRecette were deleted successfully!`,
+      });
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all Ingredient.",
+          err.message ||
+          "Some error occurred while removing all contenuRecette.",
       });
     });
 };
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-  Ingredient.findAll({ where: { published: true } })
+  ContenuRecette.findAll({ where: { published: true } })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Ingredient.",
+          err.message || "Some error occurred while retrieving contenuRecette.",
       });
     });
 };
