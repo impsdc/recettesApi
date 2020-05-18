@@ -40,7 +40,4 @@ const recetteAsso = db.contenuRecette.belongsTo(db.recette, {
   onDelete: "cascade",
 });
 
-// db.ingredient.hasOne(db.image, { as: "image" });
-// db.recette.hasOne(db.image, { as: "image" });
-
 module.exports = db;

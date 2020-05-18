@@ -1,6 +1,13 @@
 const db = require("../models");
 const Recette = db.recette;
 const Op = db.Sequelize.Op;
+const fs = require("fs");
+
+const path = require("path");
+
+exports.home = (req, res) => {
+  return res.sendFile(path.join(`${__dirname}/../../views/recette.html`));
+};
 
 // Create and Save a new candidate
 exports.create = (req, res) => {
@@ -17,7 +24,7 @@ exports.create = (req, res) => {
     nom: req.body.nom,
     published: req.body.published ? req.body.published : false,
     origin: req.body.origin,
-    image: req.body.image,
+    image: fs.readFileSync(__basedir + "/public/uploads/" + req.file.filename),
   };
 
   // Save recette in the database

@@ -1,8 +1,9 @@
 module.exports = (app) => {
   const recettes = require("../controllers/recetteController.js");
+  const upload = require("../../config/middleware/upload");
 
   // Create a new Tutorial
-  app.post("/recette/", recettes.create);
+  app.post("/recette/post",upload.single("file"),  recettes.create);
 
   // Retrieve all Tutorials
   app.get("/recette/", recettes.findAll);

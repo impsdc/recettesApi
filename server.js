@@ -26,7 +26,8 @@ db.sequelize.sync({ force: false }).then(() => {
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const ingredientCon = require("./app/controllers/ingredient.controller");
-app.get("/", ingredientCon.home);
+const recetteCon = require("./app/controllers/recetteController");
+app.get("/", recetteCon.home);
 
 require("./app/routes/ingredient.route")(app);
 require("./app/routes/contenuRecette.route")(app);

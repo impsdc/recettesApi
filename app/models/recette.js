@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     origin: {
       type: Sequelize.STRING,
     },
+    image: {
+      type: Sequelize.BLOB("long")
+    }
   });
 
   return recette;
