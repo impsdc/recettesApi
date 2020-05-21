@@ -32,7 +32,7 @@ exports.create = (req, res) => {
     nom: req.body.nom,
     prix: req.body.prix,
     published: req.body.published ? req.body.published : false,
-    image:  req.file.filename
+    image: req.file.filename
   };
 
   // Save Ingredient in the database
