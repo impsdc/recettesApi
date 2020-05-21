@@ -3,7 +3,7 @@ module.exports = (app) => {
   const upload = require("../../config/middleware/upload");
 
   // Create a new Tutorial
-  app.post("/ingredient/upload/", upload.single("file"), ingredients.create);
+  app.post("/ingredient/post/", upload.single("file"), ingredients.create);
 
   // Retrieve all Tutorials
   app.get("/ingredient/", ingredients.findAll);

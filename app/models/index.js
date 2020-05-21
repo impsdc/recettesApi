@@ -22,7 +22,6 @@ db.sequelize = sequelize;
 db.ingredient = require("./ingredient.js")(sequelize, Sequelize);
 db.contenuRecette = require("./contenuRecette.js")(sequelize, Sequelize);
 db.recette = require("./recette.js")(sequelize, Sequelize);
-// db.image = require("./image.js")(sequelize, Sequelize);
 
 //relation many to one of contenuRecette to ingredient
 db.ingredient.hasMany(db.contenuRecette, { as: "contenuRecette" });

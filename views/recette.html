@@ -24,13 +24,13 @@
 
           <form
             class="mt-4"
-            action="/ingredient/upload"
+            action="/recette/post"
             method="POST"
             enctype="multipart/form-data"
           >
             <div class="form-group">
               <input type="text" name="nom" class="form-control-file border" />
-              <input type="text" name="prix" class="form-control-file border" />
+              <input type="text" name="origin" class="form-control-file border" />
               <input
                 type="file"
                 name="file"
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -71,6 +71,6 @@
           imagesPreview(this, "div.preview-images");
         });
       });
-    </script>
+    </script> -->
   </body>
 </html>

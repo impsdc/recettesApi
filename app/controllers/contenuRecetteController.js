@@ -4,7 +4,6 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new candidate
 exports.create = (req, res) => {
-  console.log(req.body)
   // Validate request
   if (!req.body.quantite) {
     res.status(400).send({

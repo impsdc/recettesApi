@@ -11,7 +11,6 @@ exports.home = (req, res) => {
 
 // Create and Save a new candidate
 exports.create = (req, res) => {
-  console.log(req.file);
   // Validate request
   if (!req.body.nom) {
     res.status(400).send({
@@ -33,7 +32,7 @@ exports.create = (req, res) => {
     nom: req.body.nom,
     prix: req.body.prix,
     published: req.body.published ? req.body.published : false,
-    image: fs.readFileSync(__basedir + "/public/uploads/" + req.file.filename),
+    image:  req.file.filename
   };
 
   // Save Ingredient in the database

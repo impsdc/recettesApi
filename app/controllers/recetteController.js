@@ -24,7 +24,7 @@ exports.create = (req, res) => {
     nom: req.body.nom,
     published: req.body.published ? req.body.published : false,
     origin: req.body.origin,
-    image: fs.readFileSync(__basedir + "/public/uploads/" + req.file.filename),
+    image: req.file.filename
   };
 
   // Save recette in the database
