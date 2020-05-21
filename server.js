@@ -33,6 +33,10 @@ require("./app/routes/ingredient.route")(app);
 require("./app/routes/contenuRecette.route")(app);
 require("./app/routes/recette.route")(app);
 
+// Allow accss public folder
+app.use('/public', express.static(process.cwd() + '/public'))
+
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
